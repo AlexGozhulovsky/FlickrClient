@@ -9,7 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "pictureCell"
-private let cellSize: CGFloat = 124
+private let cellSize: CGFloat = 105
 private let cellSpacing: CGFloat = 2
 private let cellToContinueLoading: Int = 7
 
