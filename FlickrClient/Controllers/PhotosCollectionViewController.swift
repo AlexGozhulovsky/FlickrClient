@@ -39,14 +39,8 @@ extension PhotosCollectionViewController {
             loadPhotos()
         }
 
-        let previewURL = urlCollection[indexPath.item].previewURL
-        imageService.imageFromURL(previewURL) { result in
-            switch result {
-            case .failure(let error): self.getDataError(with: error)
-            case .success(let image): cell.imageView.image = image
-            }
-        }
-
+        cell.url = urlCollection[indexPath.item].previewURL
+        
         return cell
     }
 }
