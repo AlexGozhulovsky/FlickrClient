@@ -27,14 +27,13 @@ class SearchCollectionViewController: PhotosCollectionViewController {
     }
 
     func searchImages(with text: String, onPage: Int) {
-        flickrService.loadImages(by: SearchParameters(text: text), onPage: urlsPage) { result in
+        flickrService.loadImages(by: SearchParameters(text: text), onPage: urlsPage) { [weak self] result in
             switch result {
             case .failure(let error):
-                self.getDataError(with: error)
+                self?.getDataError(with: error)
             case .success(let urls):
-
-                self.urlCollection.append(contentsOf: urls);
-                self.collectionView.reloadData()
+                self?.urlCollection.append(contentsOf: urls);
+                self?.collectionView.reloadData()
             }
         }
     }

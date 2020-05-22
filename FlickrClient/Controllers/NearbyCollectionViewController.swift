@@ -16,7 +16,6 @@ struct FlickrImage {
 
 class NearbyCollectionViewController: PhotosCollectionViewController {
     var locationService: LocationService!
-    
     let flickrService = FlickrService()
     
     override func viewDidLoad() {
@@ -41,13 +40,13 @@ class NearbyCollectionViewController: PhotosCollectionViewController {
 
 extension NearbyCollectionViewController: LocationServiceDelegate {
     func didUpdateCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        flickrService.loadImages(by: SearchParameters(coordinate: coordinate), onPage: urlsPage) { result in
+        flickrService.loadImages(by: SearchParameters(coordinate: coordinate), onPage: urlsPage) { [weak self] result in
             switch result {
             case .failure(let error):
-                self.getDataError(with: error)
+                self?.getDataError(with: error)
             case .success(let urls):
-                self.urlCollection.append(contentsOf: urls);
-                self.collectionView.reloadData()
+                self?.urlCollection.append(contentsOf: urls);
+                self?.collectionView.reloadData()
             }
         }
     }

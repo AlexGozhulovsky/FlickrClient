@@ -25,11 +25,11 @@ class ImageViewController: UIViewController {
         scrollView.delegate = self
         
         if let url = photoURL {
-            imageService.imageFromURL(url) { result in
+            imageService.imageFromURL(url) { [weak self] result in
                 switch result {
-                case .failure(let error): self.getDataError(with: error)
-                case .success(let image): self.imageView.image = image;
-                                          self.imageView.bounds.size = image.size
+                case .failure(let error): self?.getDataError(with: error)
+                case .success(let image): self?.imageView.image = image;
+                                          self?.imageView.bounds.size = image.size
                 }
             }
         }
