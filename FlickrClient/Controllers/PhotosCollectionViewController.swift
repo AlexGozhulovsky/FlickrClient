@@ -16,7 +16,6 @@ private let imageViewControllerIdentifier = "ImageViewIdentifier"
 
 class PhotosCollectionViewController: UICollectionViewController {
     var urlCollection = [FlickrImage]()
-    let imageService = ImageService()
     var urlsPage = 1
 
     override func viewDidLoad() {
