@@ -12,6 +12,7 @@ private let reuseIdentifier = "pictureCell"
 private let cellSize: CGFloat = 105
 private let cellSpacing: CGFloat = 2
 private let cellToContinueLoading: Int = 7
+private let imageViewControllerIdentifier = "ImageViewIdentifier"
 
 class PhotosCollectionViewController: UICollectionViewController {
     var urlCollection = [FlickrImage]()
@@ -42,6 +43,13 @@ extension PhotosCollectionViewController {
         cell.url = urlCollection[indexPath.item].previewURL
         
         return cell
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imageViewController: ImageViewController = storyboard?.instantiateViewController(withIdentifier: imageViewControllerIdentifier) as! ImageViewController
+        imageViewController.photoURL = urlCollection[indexPath.item].fullURL
+
+        navigationController?.pushViewController(imageViewController, animated: true)
     }
 }
 

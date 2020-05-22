@@ -9,7 +9,6 @@
 import UIKit
 
 private let searchBarReuseIdentifier = "SearchBar"
-private let imageViewControllerIdentifier = "ImageViewIdentifier"
 
 class SearchCollectionViewController: PhotosCollectionViewController {
     let flickrService = FlickrService()
@@ -36,15 +35,6 @@ class SearchCollectionViewController: PhotosCollectionViewController {
                 self?.collectionView.reloadData()
             }
         }
-    }
-}
-
-extension SearchCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageViewController: ImageViewController = storyboard?.instantiateViewController(withIdentifier: imageViewControllerIdentifier) as! ImageViewController
-        imageViewController.photoURL = urlCollection[indexPath.item].fullURL
-
-        navigationController?.pushViewController(imageViewController, animated: true)
     }
 }
 

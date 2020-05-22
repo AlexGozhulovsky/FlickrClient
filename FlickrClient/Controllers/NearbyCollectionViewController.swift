@@ -22,14 +22,6 @@ class NearbyCollectionViewController: PhotosCollectionViewController {
         super.viewDidLoad()
         locationService = LocationService(delegate: self)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? PictureCollectionViewCell,
-            let indexPath = collectionView?.indexPath(for: cell),
-            let imageViewController = segue.destination as? ImageViewController {
-            imageViewController.photoURL = urlCollection[indexPath.item].fullURL
-        }
-    }
 
     override func loadPhotos() {
         if let coordinate = locationService.coordinate {
