@@ -9,11 +9,18 @@
 import UIKit
 
 class ImageService {
+    private var dataTaskCollection: [URL: URLSessionDataTask] = [:]
+
     func imageFromURL(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             let result: Result<UIImage, Error>
-            
+            DispatchQueue.main.sync {
+                self.dataTaskCollection[url] = nil
+            }
+
             if let error = error {
+                guard (error as NSError).code != NSURLErrorCancelled else { return }
+
                 result = .failure(error)
             } else if let data = data,
                 let image = UIImage(data: data) {
@@ -26,7 +33,14 @@ class ImageService {
                 completion(result)
             }  
         }
-        .resume()
+        dataTask.resume()
+        dataTaskCollection[url] = dataTask
+    }
+
+    func stopLoadImage(from url: URL) {
+        guard let task = dataTaskCollection[url] else { return }
+
+        task.cancel()
     }
 }
 
